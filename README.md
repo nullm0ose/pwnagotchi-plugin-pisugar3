@@ -85,7 +85,7 @@ To install the PiSugar3 plugin and configure the PiSugar3 UPS module, follow the
   Add the following lines `config.toml`:
    ```bash
    main.plugins.pisugar3.enabled = true
-    main.plugins.pisugar3.shutdown = 5
+   main.plugins.pisugar3.shutdown = 5
    ```
    Adjust the `shutdown` value to the desired battery percentage at which the pwnagotchi should shut down.
 
