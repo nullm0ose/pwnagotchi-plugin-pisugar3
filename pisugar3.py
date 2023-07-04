@@ -11,9 +11,7 @@ import pwnagotchi
 
 class UPS:
     def __init__(self):
-        # only import when the module is loaded and enabled
         import smbus
-        # 0 = /dev/i2c-0 (port I2C0), 1 = /dev/i2c-1 (port I2C1)
         self._bus = smbus.SMBus(1)
         self.sample_size = 25
         self.battery_readings = []
@@ -51,8 +49,8 @@ class PiSugar3(plugins.Plugin):
     def __init__(self):
         self.ups = None
         self.lasttemp = 69
-        self.drot = 0  # display rotation
-        self.nextDChg = 0  # last time display changed, rotate on updates after 5 seconds
+        self.drot = 0
+        self.nextDChg = 0
 
     def on_loaded(self):
         self.ups = UPS()
@@ -77,7 +75,7 @@ class PiSugar3(plugins.Plugin):
         capacity = self.ups.smoothed_capacity()
         status = self.ups.status()
 
-        if status[0] & 0x80:  # Charging or power connected
+        if status[0] & 0x80:
             ui._state._state['bat'].label = "CHG"
         else:
             ui._state._state['bat'].label = "BAT"
