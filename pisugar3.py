@@ -25,9 +25,14 @@ class UPS:
         return battery_level
 
     def status(self):
-        stat02 = self._bus.read_byte_data(0x57, 0x02)
-        stat03 = self._bus.read_byte_data(0x57, 0x03)
-        stat04 = self._bus.read_byte_data(0x57, 0x04)
+        # Try to read the bus, if it fails, return None.
+        # This is to prevent the plugin unnneded error logs when the PiSugar3 is not connected; Like when it is connected to a computer.
+        try:
+            stat02 = self._bus.read_byte_data(0x57, 0x02)
+            stat03 = self._bus.read_byte_data(0x57, 0x03)
+            stat04 = self._bus.read_byte_data(0x57, 0x04)
+        except:
+            return None, None, None
         return stat02, stat03, stat04
 
     def smoothed_capacity(self):
@@ -58,7 +63,7 @@ class PiSugar3(plugins.Plugin):
 
     def on_ui_setup(self, ui):
         try:
-            ui.add_element('bat', LabeledValue(color=BLACK, label='BAT', value='0%',
+            ui.add_element('bat', LabeledValue(color=BLACK, label='BAT:', value='0%',
                                                position=(ui.width() / 2 + 10, 0),
                                                label_font=fonts.Bold, text_font=fonts.Medium))
         except Exception as err:
@@ -75,10 +80,19 @@ class PiSugar3(plugins.Plugin):
         capacity = self.ups.smoothed_capacity()
         status = self.ups.status()
 
+        # If the battery is turned off, the status will display "NF", as in "Not Found".
+        if status[0] == None:
+            ui._state._state['bat'].label = "BAT:"
+            ui._state._state['bat'].value = "NF"
+            # Write the status to the log, so we can see if the battery is turned off.
+            # Using only a debug log, so it doesn't spam the log file.
+            logging.debug('[pisugar3] No battery found')
+            return
+
         if status[0] & 0x80:
-            ui._state._state['bat'].label = "CHG"
+            ui._state._state['bat'].label = "CHG:"
         else:
-            ui._state._state['bat'].label = "BAT"
+            ui._state._state['bat'].label = "BAT:"
 
         if capacity <= self.options['shutdown']:
             logging.info('[pisugar3] Empty battery (<= %s%%): shutting down' % self.options['shutdown'])
