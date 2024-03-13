@@ -1,4 +1,4 @@
-# Improved PiSugar 3 Plugin For Pwnagotchi 
+# Fixed Pi Sugar 3 Plugin to support Pi Sugar 3 Plus 
 
 The PiSugar 3 Plugin displays the battery percentage as well as the charging status on your Pwnagotchi's UI. 
 
