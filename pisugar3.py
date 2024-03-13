@@ -94,9 +94,11 @@ class PiSugar3(plugins.Plugin):
         else:
             ui._state._state['bat'].label = "BAT:"
 
+        ui.set('bat', "%2i%%" % capacity)
+
         if capacity <= self.options['shutdown']:
             logging.info('[pisugar3] Empty battery (<= %s%%): shutting down' % self.options['shutdown'])
             ui.update(force=True, new_data={'status': 'Battery exhausted, bye ...'})
             pwnagotchi.shutdown()
 
-        ui.set('bat', "%2i%%" % capacity)
+        
