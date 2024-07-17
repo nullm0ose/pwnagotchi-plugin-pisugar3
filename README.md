@@ -43,15 +43,22 @@ To install the PiSugar3 plugin and configure the PiSugar3 UPS module, follow the
   Detect the I2C bus and devices by running the following commands:
    ```bash
    i2cdetect -y 1
-   i2cdump -y 1 0x32
-   i2cdump -y 1 0x75
+   i2cdump -y 1 0x57
+   i2cdump -y 1 0x68
+   ```
+
+  If the i2cdetect command is not found, install the i2c-tools package by running the following command:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install i2c-tools
    ```
 
 ## Install the PiSugar Power Manager
 
   Run the following command to install the PiSugar Power Manager:
    ```bash
-   curl http://cdn.pisugar.com/release/pisugar-power-manager.sh | sudo bash
+   wget https://cdn.pisugar.com/release/pisugar-power-manager.sh
+   bash pisugar-power-manager.sh -c release
    ```
 
 ## Create the custom plugins directory
