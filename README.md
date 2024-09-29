@@ -27,7 +27,8 @@ The PiSugar 3 Plugin displays the battery percentage as well as the charging sta
 - PiSugar Power Manager
 - Custom plugins enabled and directory configured
 
-**Update (9/29/24): This plugin has been extensively tested and confirmed to work with version 1.5.5 by hundreds of users for over a year. Please note that by installing this plugin, you accept responsibility for resolving any issues related to installation or device configuration. I am not tech support. Any requests for assistance with installation, configuration, or device-specific hardware detection will be considered outside the scope of support and will likely be closed without a response **
+
+## **Update (9/29/24): This plugin has been extensively tested and confirmed to work with version 1.5.5 by hundreds of users for over a year. Please note that by installing this plugin, you accept responsibility for resolving any issues related to installation or device configuration. I am not tech support. Any requests for assistance with installation, configuration, or device-specific hardware detection will be considered outside the scope of support and will likely be closed without a response **
 
 
 ## PiSugar3 Plugin Installation
